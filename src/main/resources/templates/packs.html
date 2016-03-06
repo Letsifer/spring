@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <title> Магазин конфет </title>
+    </head>
+    <body>
+
+        <style type="text/css">
+            .row {
+                text-align:center;
+            }
+            .jumbotron {
+                background-color:pink;
+            }
+        </style>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+
+        <div class="container">
+            <div class="row"> 
+                <div class="col-xs-12">
+                    <nav class="navbar navbar-default"> <!-- Верхняя панелька<-->
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuButton" aria-expanded="false">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand">Магазин конфет</a>
+                            </div>
+                            <div class="navbar-collapse" id="menuButton">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><a href="#">Главная</a></li>
+                                    <li><a th:href="@{'/packs/' + @{0}}">Еще конфет!</a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <div class="jumbotron"> <!-- Панелька с картинкой-->
+                        <h1>Оставь зубы, всяк сюда входящий!</h1>
+                        <h3>Здесь вы познаете все тайны вкуса!</h3>
+                        <img src="imgs/sweets.jpg" class="img-thumbnail" />
+                    </div>
+                </div>
+            </div>
+            <!-- Список товаров -->
+            
+            <table class="table">
+                <thead>
+                    <caption>Список товаров</caption>
+                    <tr>
+                        <th>#</th>
+                        <th>Штрихкод</th>
+                        <th>Название конфеты</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Дата упаковки</th>
+                        <th>Срок годности</th>
+                        <th></th>
+                    </tr>                    
+                </thead>
+                <tbody>
+                        <tr th:each="pack: ${packs}">
+                            <!--<td th:text="${pack.id}"> 1 </td>-->
+                            <td><a th:href="@{'/packs/' + ${pack.id}}" th:text="${pack.id}"></a></td>
+                            <td th:text="${pack.barcode}"> str </td>
+                            <td th:text="${pack.sweet.name}"> str </td>
+                            <td th:text="${pack.price}"> 3.45 </td>
+                            <td th:text="${pack.number}"> 3 </td>
+                            <td th:text="${pack.packingDate}"> 2012-12-12 </td>
+                            <td th:text="${pack.expireDate}"> 2012-12-12 </td>
+                            <td>
+                                <form method="POST" th:action="@{'/packs/'+ ${pack.id}}">
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button type="submit" class="btn btn-danger">Удалить пачку?!</button>
+                                </form>
+                            </td>
+                        </tr>
+                </tbody>             
+            </table>
+            <!--<form method="POST" action="/packs" class="form-inline">
+                <fieldset>
+                    <legend> Новая пачка!!!</legend>
+                    <input name="barcode" placeholder="Штрихкод" class="form-control" />
+                    <button type="submit" class="btn btn-primary">Добавить пачку!</button>
+                </fieldset>
+            </form> -->
+            
+        </div>
+    </body>
+
+</html>
+
