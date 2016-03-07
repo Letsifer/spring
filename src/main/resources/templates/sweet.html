@@ -59,14 +59,12 @@
                                         </div>
                                     </div>
                                 </div> 
-                                <fieldset class="hidden sweets" disabled="" th:each="sweet: ${sweets}" th:id="@{'info'+ ${sweet.id}}">
-                                    <div class="form-group col-xs-offset-5">
-                                        <div class="col-xs-offset-1">
-                                            <label class="col-xs-2 control-label">Тип оболочки </label>
-                                            <label class="col-xs-1" th:text="${sweet.shell.name}"></label>
-                                        </div>
-                                    </div>
-                                </fieldset>
+                                <div id="shell" disabled="" class="form-group col-xs-offset-5">
+                                </div>
+                                <div id="filling" disabled="" class="form-group col-xs-offset-5">
+                                </div>
+                                <div id="description" disabled="" class="form-group col-xs-offset-5">
+                                </div>
                                 <fieldset class="hidden fillings" disabled="" th:each="sweet: ${sweets}" th:id="@{'fill' + ${sweet.id}}">
                                     <div class="form-group">
                                         <div class="col-xs-offset-1">

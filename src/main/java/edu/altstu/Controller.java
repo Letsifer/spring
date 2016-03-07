@@ -1,10 +1,13 @@
 package edu.altstu;
 
 import edu.altstu.core.SweetPack;
+import edu.altstu.core.Sweet;
 import edu.altstu.service.DBWorkService;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,21 +50,22 @@ public class Controller {
     }
     
     @ResponseBody
-    @RequestMapping(method = RequestMethod.GET, value = "/packs/{id}")
-    public Object getOne(@PathVariable Long id) {
+    @RequestMapping(method = RequestMethod.GET, value = "/packs/{id}/ajax")
+    public Object getOneAjax(@PathVariable Long id) {
+        Map<String, Sweet> result = new HashMap<>();
         if (id != 0) {
-            SweetPack pack = dBWorkService.getSweetPack(id);
-            return pack;
+            result.put("sweet", dBWorkService.getOneSweet(id));
         } else {
-            return new SweetPack();
+            result.put("sweet", null);
         }
+        return result;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/sweet/{id}")
-    public String getOneSweet(@PathVariable Long id, Model vars) {
-        vars.addAttribute("currentSweet", dBWorkService.getOneSweet(id));
-        return "redirect:/sweet/" + id;
-    }
+//    @RequestMapping(method = RequestMethod.GET, value = "/sweet/{id}")
+//    public String getOneSweet(@PathVariable Long id, Model vars) {
+//        vars.addAttribute("currentSweet", dBWorkService.getOneSweet(id));
+//        return "redirect:/sweet/" + id;
+//    }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/packs/{id}")
     public String deletePack(@PathVariable Long id) {

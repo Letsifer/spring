@@ -9,7 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -39,12 +38,10 @@ public class Sweet implements Serializable{
     private String description;
     
     @JoinColumn(name = "filling_id", nullable = false)
-//    @JoinColumn(foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (filling_id) REFERENCES filling (id) ON DELETE CASCADE"))
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Filling filling;
     
     @JoinColumn(name = "shell_id", nullable = false)
-//    @JoinColumn(foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (shell_id) REFERENCES shell (id) ON DELETE CASCADE"))
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Shell shell;
 }
