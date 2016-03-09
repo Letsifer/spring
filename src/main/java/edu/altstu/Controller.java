@@ -61,20 +61,15 @@ public class Controller {
         return result;
     }
 
-//    @RequestMapping(method = RequestMethod.GET, value = "/sweet/{id}")
-//    public String getOneSweet(@PathVariable Long id, Model vars) {
-//        vars.addAttribute("currentSweet", dBWorkService.getOneSweet(id));
-//        return "redirect:/sweet/" + id;
-//    }
-
     @RequestMapping(method = RequestMethod.DELETE, value = "/packs/{id}")
     public String deletePack(@PathVariable Long id) {
         dBWorkService.deletePack(id);
         return "redirect:/packs";
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/packs/{id}")
-    public String setInfo(@PathVariable Long id,
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.PUT, value = "/packs/{id}/ajaxput")
+    public Object setInfoAjax(@PathVariable Long id,
             @RequestParam(name = "barcode") String barcode,
             @RequestParam(name = "sweet") Long sweetId,
             @RequestParam(name = "number") Integer number,
@@ -118,8 +113,13 @@ public class Controller {
 
         } catch (Exception e) {
             System.err.println(e.getLocalizedMessage());
-        }
-        dBWorkService.createOrUpdatePack(pack);
-        return "redirect:/packs";
+        }        
+        pack = dBWorkService.createOrUpdatePack(pack);
+        String answer =  "Информация о пачке конфеток с штрих-кодом " + pack.getBarcode() + " изменена!=)";
+        Map<String, String> map = new HashMap<>();
+        map.put("answer", answer);
+        return map;
     }
+    
+    
 }

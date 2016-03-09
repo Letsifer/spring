@@ -1,14 +1,12 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         <title> Магазин конфет </title>
     </head>
     <body>
-
         <style type="text/css">
             .row {
                 text-align:center;
@@ -17,10 +15,8 @@
                 background-color:pink;
             }
         </style>
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-
         <div class="container">
             <div class="row"> 
                 <div class="col-xs-12">
@@ -49,8 +45,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Список товаров -->
-            
+            <!-- Список товаров -->            
             <table class="table">
                 <thead>
                     <caption>Список товаров</caption>
@@ -67,7 +62,6 @@
                 </thead>
                 <tbody>
                         <tr th:each="pack: ${packs}">
-                            <!--<td th:text="${pack.id}"> 1 </td>-->
                             <td><a th:href="@{'/packs/' + ${pack.id}}" th:text="${pack.id}"></a></td>
                             <td th:text="${pack.barcode}"> str </td>
                             <td th:text="${pack.sweet.name}"> str </td>
@@ -83,17 +77,7 @@
                             </td>
                         </tr>
                 </tbody>             
-            </table>
-            <!--<form method="POST" action="/packs" class="form-inline">
-                <fieldset>
-                    <legend> Новая пачка!!!</legend>
-                    <input name="barcode" placeholder="Штрихкод" class="form-control" />
-                    <button type="submit" class="btn btn-primary">Добавить пачку!</button>
-                </fieldset>
-            </form> -->
-            
+            </table>            
         </div>
     </body>
-
 </html>
-

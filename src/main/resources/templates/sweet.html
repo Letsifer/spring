@@ -36,13 +36,14 @@
                         <div align="center">
                             <h2> Добавьте вашу любимую пачку конфет! </h2>
                         </div>
-                        <form class="form-horizontal" method="POST" th:action="@{${current.id != null} ? '/packs/' + ${current.id} : '/packs/0'}">
-
-                            <input type="hidden" name="_method" value="PUT" />
+                        <form class="form-horizontal">                            
+                            <!--поле для спрятанного айдишника -->
+                            <input class="hidden" id="pack_id" th:value="@{${current.id != null} ? ${current.id} : 0}" />
+                            
                             <div class="form-group">
                                 <label for="inputBarcode" class="col-xs-2 control-label">Штрих-код</label>
                                 <div class="col-xs-4">
-                                    <input type="text" class="form-control" name="barcode" th:value="${current.barcode}" placeholder="Штрих-код" />
+                                    <input type="text" class="form-control" id="barcode" th:value="${current.barcode}" placeholder="Штрих-код" />
                                 </div>
                             </div>
                             <fieldset>
@@ -50,11 +51,11 @@
                                     <label for="chooseName" class="col-xs-2 control-label">Выберите название конфеты</label>
                                     <div class="col-xs-10">
                                         <div class="btn-group "> 
-                                            <select class="form-control" name="sweet" id="sweet_select">
+                                            <select class="form-control" id="sweet_select">
                                                 <option th:each="sweet: ${sweets}" 
                                                         th:value="${sweet.id}" 
                                                         th:text="${sweet.name}" 
-                                                        th:selected="${current.id != bull and current.sweet.id == sweet.id} ? ${current.id}"></option>   
+                                                        th:selected="${current.id != null and current.sweet.id == sweet.id} ? ${current.id}"></option>   
                                             </select>
                                         </div>
                                     </div>
@@ -65,53 +66,39 @@
                                 </div>
                                 <div id="description" disabled="" class="form-group col-xs-offset-5">
                                 </div>
-                                <fieldset class="hidden fillings" disabled="" th:each="sweet: ${sweets}" th:id="@{'fill' + ${sweet.id}}">
-                                    <div class="form-group">
-                                        <div class="col-xs-offset-1">
-                                            <label class="col-xs-2 control-label">Тип начинки</label>
-                                            <label class="col-xs-1" th:text="${sweet.filling.name}"></label>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <fieldset class="hidden description" disabled="" th:each="sweet: ${sweets}" th:id="@{'descr' + ${sweet.id}}">
-                                    <div class="form-group">
-                                        <div class="col-xs-offset-1">
-                                            <label class="col-xs-2 control-label">Описание</label>
-                                            <label class="col-xs-5" th:text="${sweet.description}"></label>
-                                        </div>
-                                    </div>
-                                </fieldset>
                             </fieldset>
                             <div class="form-group">
-                                <label for="inputNumber" class="col-xs-2 control-label">Количество конфет в 1 пачке</label>
+                                <label for="number" class="col-xs-2 control-label">Количество конфет в 1 пачке</label>
                                 <div class="col-xs-4">
-                                    <input type="number" class="form-control" name="number" th:value="${current.number}" placeholder="Количество" />
+                                    <input type="number" class="form-control" id="number" th:value="${current.number}" placeholder="Количество" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputPrice" class="col-xs-2 control-label">Цена упаковки</label>
+                                <label for="price" class="col-xs-2 control-label">Цена упаковки</label>
                                 <div class="col-xs-4">
-                                    <input  class="form-control" name="price" th:value="${current.price}" placeholder="Цена" />
+                                    <input  class="form-control" id="price" th:value="${current.price}" placeholder="Цена" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="packingDate" class="col-xs-2 control-label">Дата производства</label>
+                                <label for="packing_date" class="col-xs-2 control-label">Дата производства</label>
                                 <div class="col-xs-4">
-                                    <input type="date" class="form-control" name="packing_date" th:value="${current.packingDate}" 
+                                    <input type="date" class="form-control" id="packing_date" th:value="${current.packingDate}" 
                                            placeholder="Запишите данные в формате гггг-мм-дд(2008-08-08)"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="expireDate" class="col-xs-2 control-label">Срок годности</label>
+                                <label for="expire_date" class="col-xs-2 control-label">Срок годности</label>
                                 <div class="col-xs-4">
-                                    <input type="date" class="form-control" name="expire_date" th:value="${current.expireDate}" 
+                                    <input type="date" class="form-control" id="expire_date" th:value="${current.expireDate}" 
                                            placeholder="Запишите данные в формате гггг-мм-дд(2008-08-08)"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-offset-2 col-xs-10">
-                                    <button type="submit" class="btn btn-default"><a th:href="@{'/packs'}">Добавить пачку конфет!</a></button>
+                                    <button id="button_save" class="btn btn-default">Добавить пачку конфет!</button>                                    
                                 </div>
+                            </div>
+                            <div id="answer">                                
                             </div>
                         </form>
                     </div>
@@ -119,5 +106,4 @@
             </div>
         </div>
     </body>
-
 </html>
